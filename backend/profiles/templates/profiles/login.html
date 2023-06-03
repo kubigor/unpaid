@@ -1,0 +1,29 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/newpost.css' %}">
+
+<div class="form-container">
+    <div id="meh">
+        {% if messages %}
+            {% for message in messages %}
+                {{ message}}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <h1 class="form-title">Login</h1>
+    <form accept="" method=POST>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <label for="username" class="login-label">Username</label>
+        <input type="text" class="login-field" id="username" name="username"><br><br>
+        <label for="password" class="login-label">Password</label>
+        <input type="text" class="login-field" id="password" name="password"><br><br>
+        <button class="btn">Login</button>
+    </form>
+</div>
+
+ {% endblock %}

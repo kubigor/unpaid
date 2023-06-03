@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Unpaid{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'pages/header.css' %}">
+</head>
+<body>
+    <div id="header">
+        <div id="menu">
+            <a class="menu-button" href="/"><span>Home</span></a>
+            <a class="menu-button" href="/search">Posts</a>
+            <a class="menu-button" href="/newpost">Create post</a>
+            <a class="menu-button" href="/profile/login">My Profile</a>
+        </div>
+    </div>
+    <div id="content">
+        {% block content %} <p>some text</p> {% endblock %}
+    </div>
+</body>
+</html>
