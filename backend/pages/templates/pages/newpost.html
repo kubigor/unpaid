@@ -6,21 +6,18 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'pages/newpost.css' %}">
 
-<div class="form-container"> 
-
+<div class="container"> 
     {% if submitted %}
-    <p id="confirmation">The submission has been posted.</p>
-    <a href="/newpost"><button class="btn" >Post another</button></a>
+        <p id="confirmation">Information is submitted.</p>
+        <a href="/newpost"><button class="btn" >Post another</button></a>
     {% else %}
         <h1 class="form-title">Create new post</h1>
-        <div id="form">
-            <form accept="" method=POST>
-                {% csrf_token %}
-                
-                {{ form.as_p }}
-                <button class="btn">Submit</button>
-            </form>
-        </div>
+        <form accept="" method=POST>
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            <button class="btn">Submit</button>
+        </form>
     {% endif %}
 </div>
 

@@ -1,9 +1,39 @@
+
+/* GLOBAL STYLE */
+
 :root{
     --red-theme: #ff5a5a;
     --red-light: #ffdede;
     --red-dark: #5e2222;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.btn {
+    color: white;
+    align-self: center;
+    background-color: var(--red-theme);
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 15px;
+    border-width: 3px;
+    padding: 0.6rem 1rem 0.6rem 1rem;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 35vw;
+}
+
+/* MENU STYLE */
 
 .menu-button {
     font-size: 1.8rem;
@@ -37,5 +67,6 @@
 
 #content {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }

@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 class Company(models.Model):
     name = models.CharField(max_length=55)
@@ -8,7 +7,7 @@ class Company(models.Model):
     zip = models.CharField(max_length=5)
     phone_number = models.CharField(max_length=10)
     email = models.EmailField(unique=True)
-    approved = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=False)
     image = models.ImageField(upload_to="logos/")
 
     class Meta:
@@ -17,58 +16,26 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
-class Contractor(models.Model):
+class Member(models.Model):
     id = models.AutoField(primary_key=True)
-    company = models.ForeignKey(
-        Company, related_name="company", on_delete=models.CASCADE)
-    username = models.CharField(max_length=18, unique=True)
+    is_contractor = models.BooleanField(null=True)
     first_name = models.CharField(max_length=18)
     last_name = models.CharField(max_length=18)
-    email = models.EmailField(unique=True)
-    position = models.CharField(choices=(
-        ("Owner", "Owner"),
-        ("Administrator", "Administrator"),
-        ("Technician", "Technician"),
-        ("Other", "Other"),)
-    )
-
-    def __str__(self):
-        return self.name
-
-class Customer(models.Model):
     username = models.CharField(max_length=18, unique=True)
-    first_name = models.CharField(max_length=18)
-    last_name = models.CharField(max_length=18)
-    phone_number = models.CharField(max_length=10)
     email = models.EmailField(unique=True)
-    address = models.CharField(max_length=55)
-    zip = models.CharField(max_length=5)
+    phone_number = models.CharField(max_length=10, null=True)
+    address = models.CharField(max_length=55, null=True)
+    zip = models.CharField(max_length=5, null=True)
+    company = models.CharField(max_length=55, null=True)
 
-    def __str__(self):
-        return self.name
-    
-class Inquiry(models.Model):
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=32)
-    body = models.TextField(max_length=800)
-    post_id = models.CharField(max_length=10)
-    attachment = models.ImageField(upload_to="invoices/")
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name_plural = ("inquiries")
-
-    def __str__(self):
-        return self.name
-
-class Comment(models.Model):
-    id = models.AutoField(primary_key=True)
-    body = models.TextField(max_length=800)
-    attachment = models.ImageField(upload_to="photos/")
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
+    # company = models.ForeignKey(
+    #     Company, related_name="company_member", on_delete=models.CASCADE, default=0)
+    # position = models.CharField(choices=(
+    #     ("Owner", "Owner"),
+    #     ("Administrator", "Administrator"),
+    #     ("Technician", "Technician"),
+    #     ("Other", "Other"),)
+    # )
     
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
@@ -79,3 +46,39 @@ class Post(models.Model):
     amount = models.CharField(max_length=10)
     description = models.TextField(max_length=800)
     created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(
+        Member, related_name="post_author", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+    
+
+    def __str__(self):
+        return self.username
+    
+class Inquiry(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=32)
+    body = models.TextField(max_length=800)
+    post = models.ForeignKey(Post, related_name="post_inquiry", on_delete=models.CASCADE)
+    attachment = models.ImageField(upload_to="invoices/")
+    author = models.ForeignKey(Member, related_name="inquiry_author", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = ("inquiries")
+
+    def __str__(self):
+        return self.title
+
+class Comment(models.Model):
+    id = models.AutoField(primary_key=True)
+    author = models.ForeignKey(Member, related_name="comment_author", on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name="post_comment", on_delete=models.CASCADE)
+    body = models.TextField(max_length=800)
+    attachment = models.ImageField(upload_to="photos/")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.id
+    

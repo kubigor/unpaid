@@ -17,11 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
-from pages import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls', namespace='pages')),
     path('profile/', include ('django.contrib.auth.urls')),
     path('profile/', include ('profiles.urls', namespace='profiles')),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]

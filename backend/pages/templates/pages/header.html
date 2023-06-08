@@ -14,11 +14,17 @@
             <a class="menu-button" href="/"><span>Home</span></a>
             <a class="menu-button" href="/search">Posts</a>
             <a class="menu-button" href="/newpost">Create post</a>
-            <a class="menu-button" href="/profile/login">My Profile</a>
+            <a class="menu-button" href="/profile">My Profile</a>
+            {% if user.is_authenticated %}
+                <a class="menu-button" href="/profile/logout_user">Logout</a>
+            {% else %}
+                <a class="menu-button" href="/profile/login">Login</a>
+            {% endif %}
         </div>
     </div>
     <div id="content">
         {% block content %} <p>some text</p> {% endblock %}
     </div>
+
 </body>
 </html>
