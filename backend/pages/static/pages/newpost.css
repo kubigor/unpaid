@@ -1,26 +1,4 @@
-
-.form-label {
-    display: flex;
-    justify-content: flex-start;
-    margin-right: 0.2rem;
-    color: var(--red-dark);
-    font-size: 1.4rem;
-    width: 100%;
-}
-
-.form-field {
-    max-height: 5rem;
-    font-size: 1.4rem;
-    width: 200%; 
-    align-self: center;
-}
-
-.form-title {
-    text-align: center;
-    font-size: 2.6rem;
-}
-
 #confirmation {
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.2rem;
 }

@@ -10,11 +10,7 @@ def create_post(request):
         form = PostForm(request.POST)
         if form.is_valid():
             obj = form.save(commit=False)
-            print(request.user.username)
-            print(Member.objects.all())
-
-
-            obj.author = Member.objects.get(username=request.user.username).id
+            obj.author = Member.objects.get(id=request.user.id)
             obj.save()
             return HttpResponseRedirect('/newpost?submitted')
     else:

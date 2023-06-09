@@ -8,7 +8,7 @@ class Company(models.Model):
     phone_number = models.CharField(max_length=10)
     email = models.EmailField(unique=True)
     is_approved = models.BooleanField(default=False)
-    image = models.ImageField(upload_to="logos/")
+    image = models.ImageField(null=True, upload_to="logos/")
 
     class Meta:
         verbose_name_plural = ("companies")
@@ -17,7 +17,7 @@ class Company(models.Model):
         return self.name
 
 class Member(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.BigIntegerField(primary_key=True)
     is_contractor = models.BooleanField(null=True)
     first_name = models.CharField(max_length=18)
     last_name = models.CharField(max_length=18)
@@ -28,6 +28,8 @@ class Member(models.Model):
     zip = models.CharField(max_length=5, null=True)
     company = models.CharField(max_length=55, null=True)
 
+    def __str__(self):
+        return self.username
     # company = models.ForeignKey(
     #     Company, related_name="company_member", on_delete=models.CASCADE, default=0)
     # position = models.CharField(choices=(
@@ -52,16 +54,13 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
-
-    def __str__(self):
-        return self.username
     
 class Inquiry(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=32)
     body = models.TextField(max_length=800)
     post = models.ForeignKey(Post, related_name="post_inquiry", on_delete=models.CASCADE)
-    attachment = models.ImageField(upload_to="invoices/")
+    attachment = models.ImageField(null=True, upload_to="invoices/")
     author = models.ForeignKey(Member, related_name="inquiry_author", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -76,7 +75,7 @@ class Comment(models.Model):
     author = models.ForeignKey(Member, related_name="comment_author", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, related_name="post_comment", on_delete=models.CASCADE)
     body = models.TextField(max_length=800)
-    attachment = models.ImageField(upload_to="photos/")
+    attachment = models.ImageField(null=True, upload_to="photos/")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

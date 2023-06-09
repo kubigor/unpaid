@@ -6,12 +6,33 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'pages/profile.css' %}">
 
-<div>
-    <h1 class="form-title">My account</h1>
+<h1 class="form-title">My account</h1>
+<div id="layout">
+    <div class="profile-column">a</div>
+    <div class="profile-column central">
+        <div id="info">
+            <p class="form-label">Username: <span class="profile-span">{{ username }}</span></p>
+            <p class="form-label">First name: <span class="profile-span">{{ first_name }}</span></p>
+            <p class="form-label">Last name: <span class="profile-span">{{ last_name }}</span></p>
+            <p class="form-label">Email: <span class="profile-span">{{ email }}</span></p>
+            {% if phone_number %}
+                <p class="form-label">Phone number: <span class="profile-span">{{ phone_number }}</span></p>
+            {% endif %}
+            {% if address or zip %}
+                <p class="form-label">Address: <span class="profile-span">{{ address }}, {{ zip }}</span></p>
+            {% endif %}
+            {% if company %}
+                <p class="form-label">Company: <span class="profile-span">{{ company }}</span></p>
+            {% endif %}
+        </div>
+        <a href="settings">
+            <button class="btn">Go to settings</button>
+        </a>
+</div>
+    <div class="profile-column">c</div>
+
+
     
-    <a href="settings">
-        <button class="btn">Go to settings</button>
-    </a>
 </div>
 
 

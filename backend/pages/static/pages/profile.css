@@ -1,4 +1,35 @@
+.profile-span {
+    position: absolute;
+    margin-left: 12rem;
+}
 .form-title {
     text-align: center;
     font-size: 2.6rem;
+}
+
+.profile-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25vw;
+    /* background-color: forestgreen; */
+}
+
+.central {
+    width: 40vw;
+    /* background-color: bisque; */
+    align-items: center;
+}
+
+
+#layout {
+    display: flex;
+    flex-direction: row;
+    width: 90vw;
+}
+
+#info {
+    display: flex;
+    flex-direction: column;
+    margin-left: -12rem;
 }
