@@ -8,7 +8,24 @@
 
 <h1 class="form-title">My account</h1>
 <div id="layout">
-    <div class="profile-column">a</div>
+    <div class="profile-column">
+        {% if company != 'None' %}
+        <div id="company_info">
+            {% if company_image %}
+            <div class="logo"><img src="{% static company_image %}" alt="Company logo" width="200" height="200"></div>
+            {% else %}
+            <div class="logo"><img src="{% static 'logos/placeholder.png' %}" alt="Company logo" width="200" height="200"></div>
+            {% endif %}
+            <p class="form-label">{{ company_name }}</p>
+            <p class="form-label">{{ company_license_number }}</p>
+            <p class="form-label">{{ company_address }}</p>
+            <p class="form-label">{{ company_zip }}</p>
+            <p class="form-label">{{ company_phone_number }}</p>
+            <p class="form-label">{{ company_email }}</p>
+            <p class="form-label">{{ company_approval }}</p>
+        </div>
+        {% endif %}
+    </div>
     <div class="profile-column central">
         <div id="info">
             <p class="form-label">Username: <span class="profile-span">{{ username }}</span></p>
@@ -23,6 +40,12 @@
             {% endif %}
             {% if company %}
                 <p class="form-label">Company: <span class="profile-span">{{ company }}</span></p>
+            {% endif %}
+            {% if position %}
+                <p class="form-label">Position: <span class="profile-span">{{ position }}</span></p>
+            {% endif %}
+            {% if test %}
+                <p class="form-label">Test: <span class="profile-span">{{ test }}</span></p>
             {% endif %}
         </div>
         <a href="settings">

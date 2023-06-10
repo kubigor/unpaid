@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm, ContractorChangeForm, CustomerChangeForm
-from pages.models import Member
+from .forms import UserRegistrationForm, ContractorChangeForm, CustomerChangeForm, CompanyCreationForm
+from pages.models import Member, Company
 
 def registration(request):
     if request.method == 'POST':
@@ -76,7 +76,14 @@ def profile_update(request):
 
             if contractor:
                 company = form.cleaned_data['company']
+                position = form.cleaned_data['position']
                 current_member.company = company
+                current_member.position = position
+                if company == 'None':
+                    current_member.save()
+                    current_user.save()
+                    messages.warning(request, "Every employee should be attached to the company. If your company is not listed create one!")
+                    return render(request, 'profiles/profile_update.html', {'form': form})
             else:
                 phone_number = form.cleaned_data['phone_number']
                 address = form.cleaned_data['address']
@@ -102,19 +109,46 @@ def profile(request):
     address = current_member.address
     zip = current_member.zip
     company = current_member.company
+    position = current_member.position
 
-    return render(request, 'profiles/profile.html', {'username': username, 'first_name': first_name, 'last_name': last_name, 'email': email, 'phone_number': phone_number, 'address': address, 'zip': zip, 'company': company})
+    try:
+        current_company = Company.objects.get(name=company)
+    except:
+        current_company = None
+        to_render = {'username': username, 'first_name': first_name, 'last_name': last_name, 'email': email, 'phone_number': phone_number, 'address': address, 'zip': zip, 'company': company, 'position': position}
+
+    if current_company:
+        company_name = current_company.name
+        company_license_number = current_company.license_number
+        company_address = current_company.address
+        company_zip = current_company.zip
+        company_phone_number = current_company.phone_number
+        company_email = current_company.email
+        company_approval = current_company.is_approved
+        company_image = current_company.image
+        print(1,company_image)
+        to_render = {'username': username, 'first_name': first_name, 'last_name': last_name, 'email': email, 'phone_number': phone_number, 'address': address, 'zip': zip, 'company': company, 'position': position, 'company_name': company_name, 'company_license_number': company_license_number, 'company_address': company_address, 'company_zip': company_zip, 'company_phone_number': company_phone_number, 'company_email': company_email, 'company_approval': company_approval, 'company_image': company_image}
+
+    return render(request, 'profiles/profile.html', to_render)
+
+def create_company(request):
+    if request.method == 'POST':
+        form = CompanyCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profile/')   
+    else:
+        form = CompanyCreationForm
+    return render(request, 'profiles/create_company.html', {'form': form})
 
 @login_required(login_url='/profile/login')
 def type_option(request):
-    return render(request, 'profiles/contractor_customer.html')
-
-@login_required(login_url='/profile/login')
-def set_type(request, type):
     profile = Member.objects.get(username=request.user.username)
-    if type == 'contractor':
-        profile.is_contractor = True
-    else:
-        profile.is_contractor = False
-    profile.save()
-    return redirect('/profile/settings')
+    if 'contractor' in request.GET or 'customer' in request.GET:
+        if 'contractor' in request.GET:
+            profile.is_contractor = True
+        elif 'customer' in request.GET:
+            profile.is_contractor = False
+        profile.save()
+        return redirect('/profile/settings')
+    return render(request, 'profiles/contractor_customer.html')

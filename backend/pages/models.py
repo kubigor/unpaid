@@ -16,7 +16,16 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+
+
 class Member(models.Model):
+    def company_filler():
+        companies = Company.objects.all()
+        choices = [('None', 'Not on the list')]
+        for unit in companies:
+            choices.append((f"{unit}", f"{unit}"))
+        return tuple(choices)
+    
     id = models.BigIntegerField(primary_key=True)
     is_contractor = models.BooleanField(null=True)
     first_name = models.CharField(max_length=18)
@@ -26,18 +35,16 @@ class Member(models.Model):
     phone_number = models.CharField(max_length=10, null=True)
     address = models.CharField(max_length=55, null=True)
     zip = models.CharField(max_length=5, null=True)
-    company = models.CharField(max_length=55, null=True)
+    company = models.CharField(default='test', choices=(company_filler()))
+    position = models.CharField(default='Other', choices=(
+        ("Owner", "Owner"),
+        ("Administrator", "Administrator"),
+        ("Technician", "Technician"),
+        ("Other", "Other"),)
+    )
 
     def __str__(self):
         return self.username
-    # company = models.ForeignKey(
-    #     Company, related_name="company_member", on_delete=models.CASCADE, default=0)
-    # position = models.CharField(choices=(
-    #     ("Owner", "Owner"),
-    #     ("Administrator", "Administrator"),
-    #     ("Technician", "Technician"),
-    #     ("Other", "Other"),)
-    # )
     
 class Post(models.Model):
     id = models.AutoField(primary_key=True)

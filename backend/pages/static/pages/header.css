@@ -11,7 +11,10 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
 
+a {
+    text-decoration: none;
 }
 
 .alert {
@@ -19,13 +22,19 @@ form {
     border-radius: 8px;
     font-size: 1.2rem;
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     align-self: center;
+    text-align: center;
 }
 
 .alert-success {
     border: solid green 2px;
     background-color: rgb(168, 255, 156);
+}
+
+.alert-warning {
+    border: solid rgb(128, 102, 0) 2px;
+    background-color: rgb(255, 250, 160);
 }
 
 .alert-danger {
@@ -37,6 +46,7 @@ form {
     color: white;
     align-self: center;
     background-color: var(--red-theme);
+    margin-top: 0.6rem;
     font-size: 2rem;
     font-weight: 600;
     border-radius: 15px;

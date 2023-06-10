@@ -4,6 +4,7 @@
 {% block title %} Profile Settings {% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'pages/profile_update.css' %}">
 
 <div class="container">
     {% if user.is_authenticated %}
@@ -14,6 +15,9 @@
                 <div class="alert {{ message.tags }}" id="msg" role="alert">
                     {{ message }}
                 </div>
+                {% if message.tags == 'alert-warning' %}
+                    <a href="company" id="anchor"><h1 id="company-create-link">Create a company!</h1></a>
+                {% endif %}
             {% endfor %}
             {% endif %}
         </div>
