@@ -1,0 +1,16 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/details.css' %}">
+
+<div class="central">
+    <h1>{{ object.title }}</h1>
+    <p class="form-label">Author: <span class="profile-span">{{ object.author }}</span></p>
+    <p class="form-label">Post: <span class="profile-span">{{ object.post }}</span></p>
+    <p class="form-label">Desription: <span class="profile-span">{{ object.body }}</span></p>
+    <p class="form-label"><span class="profile-span">{{ object.attachment }}</span></p>
+
+</div>
+
+{% endblock %}

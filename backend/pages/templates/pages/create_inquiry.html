@@ -1,0 +1,24 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block title %} New inquiry {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/newpost.css' %}">
+
+<div class="container"> 
+    {% if submitted %}
+        <h3 id="confirmation">Your information was submitted.</h3>
+        <a href="/inquiry"><button class="btn" >Post another</button></a>
+    {% else %}
+        <h1 class="form-title">Create new inquiry</h1>
+        <form method="post" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            <button class="btn" type="submit">Submit</button>
+        </form>
+    {% endif %}
+</div>
+
+ {% endblock %}

@@ -12,11 +12,11 @@
         <a href="/newpost"><button class="btn" >Post another</button></a>
     {% else %}
         <h1 class="form-title">Create new post</h1>
-        <form accept="" method=POST>
+        <form method="post" enctype="multipart/form-data"> 
             {% csrf_token %}
             
             {{ form.as_p }}
-            <button class="btn">Submit</button>
+            <button class="btn" type="submit">Submit</button>
         </form>
     {% endif %}
 </div>

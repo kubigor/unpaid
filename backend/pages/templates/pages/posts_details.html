@@ -1,0 +1,13 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/posts.css' %}">
+
+<div>
+    <h1>
+        posts <br>
+        {{ object.title }}{{ object.name }}
+    </h1>
+</div>
+{% endblock %}

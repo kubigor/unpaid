@@ -3,8 +3,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm, ContractorChangeForm, CustomerChangeForm, CompanyCreationForm
-from pages.models import Member, Company
+from .forms import UserRegistrationForm, ContractorChangeForm, CustomerChangeForm, CompanyCreationForm, LogoForm
+from pages.models import Member, Company, Inquiry, Post
+from base.selenium_scraper import find_status
 
 def registration(request):
     if request.method == 'POST':
@@ -20,8 +21,7 @@ def registration(request):
                 messages.error(request, 'Email %s is already registered.' % email)
             else:
                 form.save()
-                id = User.objects.get(username=username).id
-                new_member = Member.objects.create(id=id, first_name=first_name, last_name=last_name, username=username, email=email)
+                new_member = Member.objects.create(first_name=first_name, last_name=last_name, username=username, email=email)
                 new_member.save()
                 user = authenticate(username=username, password=password)
                 login(request, user)
@@ -67,12 +67,20 @@ def profile_update(request):
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
+            still_contractor = form.cleaned_data['is_contractor']
+            print(still_contractor)
             current_member.first_name = first_name
             current_member.last_name = last_name
             current_member.email = email
             current_user.first_name = first_name
             current_user.last_name = last_name
             current_user.email = email
+            if contractor != still_contractor:
+                current_member.is_contractor = still_contractor
+                if not still_contractor:
+                    current_member.company = 'None'
+                current_member.save()
+                return redirect('/profile/settings')
 
             if contractor:
                 company = form.cleaned_data['company']
@@ -101,33 +109,25 @@ def profile_update(request):
 @login_required(login_url='/profile/login')
 def profile(request):
     current_member = Member.objects.get(username=request.user.username)
-    username = current_member.username
-    first_name = current_member.first_name
-    last_name = current_member.last_name
-    email = current_member.email
-    phone_number = current_member.phone_number
-    address = current_member.address
-    zip = current_member.zip
+    member_posts = Post.objects.filter(author=current_member.username)
+    member_inquiries = Inquiry.objects.filter(author=current_member.id)
     company = current_member.company
-    position = current_member.position
-
     try:
         current_company = Company.objects.get(name=company)
     except:
         current_company = None
-        to_render = {'username': username, 'first_name': first_name, 'last_name': last_name, 'email': email, 'phone_number': phone_number, 'address': address, 'zip': zip, 'company': company, 'position': position}
+        to_render = {'current_member': current_member, 'posts': member_posts, 'inquiries': member_inquiries}
 
     if current_company:
-        company_name = current_company.name
-        company_license_number = current_company.license_number
-        company_address = current_company.address
-        company_zip = current_company.zip
-        company_phone_number = current_company.phone_number
-        company_email = current_company.email
-        company_approval = current_company.is_approved
-        company_image = current_company.image
-        print(1,company_image)
-        to_render = {'username': username, 'first_name': first_name, 'last_name': last_name, 'email': email, 'phone_number': phone_number, 'address': address, 'zip': zip, 'company': company, 'position': position, 'company_name': company_name, 'company_license_number': company_license_number, 'company_address': company_address, 'company_zip': company_zip, 'company_phone_number': company_phone_number, 'company_email': company_email, 'company_approval': company_approval, 'company_image': company_image}
+        if request.method == 'POST':
+            form = LogoForm(request.POST, request.FILES)
+            if form.is_valid():
+                current_company.image = form.cleaned_data['image']
+                print(current_company.image)
+                current_company.save()
+        else:
+            form = LogoForm()
+        to_render = {'current_member': current_member, 'current_company': current_company, 'form': form, 'posts': member_posts, 'inquiries': member_inquiries}
 
     return render(request, 'profiles/profile.html', to_render)
 
@@ -135,8 +135,16 @@ def create_company(request):
     if request.method == 'POST':
         form = CompanyCreationForm(request.POST)
         if form.is_valid():
+            current_member = Member.objects.get(username=request.user.username)
+            company_name = form.cleaned_data['name']
+            company_license = form.cleaned_data['license_number']
+            current_member.company = company_name
+            current_member.save()
             form.save()
-            return redirect('profile/')   
+            current_company = Company.objects.get(name=company_name)
+            current_company.license_status = find_status(company_license)
+            current_company.save()
+            return redirect('/profile')
     else:
         form = CompanyCreationForm
     return render(request, 'profiles/create_company.html', {'form': form})
@@ -152,3 +160,16 @@ def type_option(request):
         profile.save()
         return redirect('/profile/settings')
     return render(request, 'profiles/contractor_customer.html')
+
+def update_status(request):
+    current_member = Member.objects.get(username=request.user.username)
+    try:
+        current_company = Company.objects.get(name=current_member.company)
+    except:
+        return redirect('/profile')
+    company_license = current_company.license_number
+    current_company.license_status = find_status(company_license)
+    if current_company.license_status == "Active":
+        messages.success(request, f"Your status is {current_company.license_status}")
+    current_company.save()
+    return redirect('/profile')

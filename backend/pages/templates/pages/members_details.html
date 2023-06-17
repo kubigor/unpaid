@@ -1,0 +1,50 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/profile.css' %}">
+
+<h1 class="form-title">{{ object.username }}'s account</h1>
+<div id="layout">
+    <div class="profile-column">
+
+    </div>
+    <div class=" central">
+        <div id="info">
+            <p class="form-label">Username: <span class="profile-span">{{ object.username }}</span></p>
+            <p class="form-label">First name: <span class="profile-span">{{ object.first_name }}</span></p>
+            <p class="form-label">Last name: <span class="profile-span">{{ object.last_name }}</span></p>
+            <p class="form-label">Email: <span class="profile-span">{{ object.email }}</span></p>
+            {% if object.is_contractor %}
+            <p class="form-label">Contractor: <span class="profile-span">Yes</span></p>
+            {% else %}
+            <p class="form-label">Contractor: <span class="profile-span">No</span></p>
+            {% endif %}
+            {% if current_member.is_contractor %}
+                {% if current_member.company %}
+                <p class="form-label">Company: <span class="profile-span">{{ current_member.company }}</span></p>
+                {% endif %}
+                {% if current_member.position %}
+                <p class="form-label">Position: <span class="profile-span">{{ current_member.position }}</span></p>
+                {% endif %}
+            {% else %}
+                {% if current_member.phone_number %}
+                    <p class="form-label">Phone number: <span class="profile-span">{{ current_member.phone_number }}</span></p>
+                {% endif %}
+                {% if current_member.address or current_member.zip %}
+                    <p class="form-label">Address: <span class="profile-span">{{ current_member.address }}, {{ current_member.zip }}</span></p>
+                {% endif %}
+            {% endif %}
+
+        </div>
+        <a href="settings">
+            <button class="btn">Go to settings</button>
+        </a>
+    </div>
+    <div class="profile-column">
+        {% if current_member.is_contractor %}
+        Display some staff
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

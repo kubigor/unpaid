@@ -54,10 +54,11 @@ class CustomerChangeForm(UserChangeForm):
     phone_number = forms.CharField(max_length=10)
     address = forms.CharField(max_length=55)    
     zip = forms.CharField(max_length=5)
+    is_contractor = forms.ChoiceField
 
     class Meta:
         model = Member
-        fields = ('first_name', 'last_name', 'email', 'phone_number', 'address', 'zip')
+        fields = ('first_name', 'last_name', 'email', 'phone_number', 'address', 'zip', 'is_contractor')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -76,10 +77,11 @@ class ContractorChangeForm(UserChangeForm):
     last_name = forms.CharField(max_length=18)
     company = forms.ChoiceField
     position = forms.ChoiceField
+    is_contractor = forms.ChoiceField
 
     class Meta:
         model = Member
-        fields = ('first_name', 'last_name', 'email', 'company', 'position')
+        fields = ('first_name', 'last_name', 'email', 'company', 'position', 'is_contractor')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -87,3 +89,17 @@ class ContractorChangeForm(UserChangeForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-field'})
             self.fields[field].help_text = None
+
+
+class LogoForm(ModelForm):
+    required_css_class = 'form-label'
+
+    class Meta:
+        model = Company
+        fields = ('image',)
+        labels = {'image': ''}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['image'].widget.attrs.update({'class': 'image-field', 'id': 'logo-update'})

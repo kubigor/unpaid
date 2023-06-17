@@ -11,5 +11,6 @@ urlpatterns = [
     path('settings', views.profile_update, name='settings'),
     path('company', views.create_company, name='company'),
     path('type', views.type_option, name='type_option'),
+    path('update', views.update_status, name='update_status'),
 
 ]

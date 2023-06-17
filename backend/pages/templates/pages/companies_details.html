@@ -1,0 +1,42 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/details.css' %}">
+
+
+<div class="central">
+    <h1>{{ object.name }}</h1>
+    <img src='/media/{{ object.image }}' id="logo" alt="Company logo"/>
+    <p class="form-label">License number: <span class="profile-span">{{ object.license_number }}</span></p>
+    <p class="form-label">Address: <span class="profile-span">{{ object.address }}</span></p>
+    <p class="form-label">Zip: <span class="profile-span">{{ object.zip }}</span></p>
+    <p class="form-label">Phone number: <span class="profile-span">{{ object.phone_number }}</span></p>
+    <p class="form-label">Email: <span class="profile-span">{{ object.email }}</span></p>
+    <p class="form-label">License status: <span class="profile-span">{{ object.license_status }}</span></p>
+    <h2>Employees</h2>
+
+    {% if objects %}
+    <table>
+        <tr>
+            <th style="width: 25%;">First name</th>
+            <th style="width: 25%;">Last name</th>
+            <th style="width: 25%;">Position</th>
+            <th style="width: 25%;">Phone number</th>
+        </tr>
+        
+        {% for member in objects %}
+        <tr class='row' onclick="window.location='/members/{{ member.id }}';">
+            <td>{{ member.first_name }}</td>
+            <td>{{ member.last_name }}</td>
+            <td>{{ member.position }}</td>
+            <td>{{ member.phone_number }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <h3>Company doesn't have registered employees at this moment.</h3>
+    {% endif %}
+</div>
+
+{% endblock %}
