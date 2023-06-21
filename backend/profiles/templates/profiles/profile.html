@@ -76,6 +76,7 @@
     <div class="tables">
         {% if current_member.is_contractor %}
         <h2> My posts</h2>
+        {% if posts %}
         <table>
             <tr>
                 <th style="width: 30%;">Invoice</th>
@@ -91,6 +92,16 @@
             </tr>
             {% endfor %}
         </table>
+        {% else %}
+        <table>
+            <tr>
+                <th style="width: 30%;">Invoice</th>
+                <th style="width: 30%;">Title</th>
+                <th style="width: 40%;">Service provided</th>
+            </tr>
+        </table>
+        <h3>You have no posts yet.</h3>
+        {% endif %}
         {% endif %}
 
         <h3>My inquiries <button id="add-inquiry-btn" onclick="window.location='/inquiry';">+</button></h3>
