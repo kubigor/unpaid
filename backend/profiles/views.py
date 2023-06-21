@@ -123,7 +123,6 @@ def profile(request):
             form = LogoForm(request.POST, request.FILES)
             if form.is_valid():
                 current_company.image = form.cleaned_data['image']
-                print(current_company.image)
                 current_company.save()
         else:
             form = LogoForm()

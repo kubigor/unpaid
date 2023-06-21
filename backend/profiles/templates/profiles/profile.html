@@ -73,14 +73,14 @@
             <button class="btn">Go to settings</button>
         </a>
     </div>
-    <div class="profile-column">
+    <div class="tables">
         {% if current_member.is_contractor %}
         <h2> My posts</h2>
         <table>
             <tr>
-                <th style="width: 25%;">Invoice</th>
-                <th style="width: 25%;">Title</th>
-                <th style="width: 50%;">Service provided</th>
+                <th style="width: 30%;">Invoice</th>
+                <th style="width: 30%;">Title</th>
+                <th style="width: 40%;">Service provided</th>
             </tr>
             
             {% for post in posts %}
@@ -94,22 +94,31 @@
         {% endif %}
 
         <h3>My inquiries <button id="add-inquiry-btn" onclick="window.location='/inquiry';">+</button></h3>
+        {% if inquiries %}            
         <table>
             <tr>
                 <th style="width: 10%;">Id</th>
                 <th style="width: 45%;">Title</th>
                 <th style="width: 45%;">Post</th>
             </tr>
-            
             {% for inquiry in inquiries %}
             <tr class='row' onclick="window.location='/inquiries/{{ inquiry.id }}';">
                 <td>{{ inquiry.id }}</td>
                 <td>{{ inquiry.title }}</td>
                 <td>{{ inquiry.post }}</td>
-
             </tr>
             {% endfor %}
         </table>
+        {% else %}
+        <table>
+            <tr>
+                <th style="width: 10%;">Id</th>
+                <th style="width: 45%;">Title</th>
+                <th style="width: 45%;">Post</th>
+            </tr>
+        </table>
+        <h3>You don't have any inquiries at this moment.</h3>
+        {% endif %}
     </div>
 </div>
 

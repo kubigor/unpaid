@@ -20,31 +20,62 @@
             {% else %}
             <p class="form-label">Contractor: <span class="profile-span">No</span></p>
             {% endif %}
-            {% if current_member.is_contractor %}
-                {% if current_member.company %}
-                <p class="form-label">Company: <span class="profile-span">{{ current_member.company }}</span></p>
+            {% if object.is_contractor %}
+                {% if object.company %}
+                <p class="form-label">Company: <span class="profile-span">{{ object.company }}</span></p>
                 {% endif %}
-                {% if current_member.position %}
-                <p class="form-label">Position: <span class="profile-span">{{ current_member.position }}</span></p>
+                {% if object.position %}
+                <p class="form-label">Position: <span class="profile-span">{{ object.position }}</span></p>
                 {% endif %}
             {% else %}
-                {% if current_member.phone_number %}
-                    <p class="form-label">Phone number: <span class="profile-span">{{ current_member.phone_number }}</span></p>
+                {% if object.phone_number %}
+                    <p class="form-label">Phone number: <span class="profile-span">{{ object.phone_number }}</span></p>
                 {% endif %}
-                {% if current_member.address or current_member.zip %}
-                    <p class="form-label">Address: <span class="profile-span">{{ current_member.address }}, {{ current_member.zip }}</span></p>
+                {% if object.address or object.zip %}
+                    <p class="form-label">Address: <span class="profile-span">{{ object.address }}, {{ object.zip }}</span></p>
                 {% endif %}
             {% endif %}
 
         </div>
-        <a href="settings">
-            <button class="btn">Go to settings</button>
         </a>
     </div>
-    <div class="profile-column">
+    <div class="tables">
         {% if current_member.is_contractor %}
-        Display some staff
+        <h2> {{ object.username }}'s posts</h2>
+        <table>
+            <tr>
+                <th style="width: 30%;">Invoice</th>
+                <th style="width: 30%;">Title</th>
+                <th style="width: 40%;">Service provided</th>
+            </tr>
+            
+            {% for post in posts %}
+            <tr class='row' onclick="window.location='/posts/{{ post.id }}';">
+                <td>{{ post.invoice_number }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.service_provided }}</td>
+            </tr>
+            {% endfor %}
+        </table>
         {% endif %}
+
+        <h3>{{ object.username }}'s inquiries</h3>
+        <table>
+            <tr>
+                <th style="width: 10%;">Id</th>
+                <th style="width: 45%;">Title</th>
+                <th style="width: 45%;">Post</th>
+            </tr>
+            
+            {% for inquiry in inquiries %}
+            <tr class='row' onclick="window.location='/inquiries/{{ inquiry.id }}';">
+                <td>{{ inquiry.id }}</td>
+                <td>{{ inquiry.title }}</td>
+                <td>{{ inquiry.post }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 </div>
 {% endblock %}

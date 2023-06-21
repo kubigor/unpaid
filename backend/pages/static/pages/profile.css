@@ -21,7 +21,14 @@ tr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 25vw;
+    width: 30vw;
+}
+
+.tables {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
 }
 
 .central {
@@ -30,8 +37,8 @@ tr {
     align-items: center;
     width: 40vw;
     padding-top: 2rem;
-    padding-bottom: 3rem;
-    margin-bottom: 7rem;
+    padding-bottom: 4rem;
+    margin-bottom: 12rem;
     background-color: rgb(238, 238, 238);
     border-radius: 18px;
     border: var(--red-dark) solid 3px;
@@ -42,7 +49,7 @@ tr {
 #layout {
     display: flex;
     flex-direction: row;
-    width: 90vw;
+    width: 99vw;
 }
 
 #company-info-container {

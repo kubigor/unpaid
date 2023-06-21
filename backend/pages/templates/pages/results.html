@@ -1,0 +1,79 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/posts.css' %}">
+<div id="container">
+    <div id="buttons-area">
+        <button class="btn" onclick="location.href='/search/inquiries/0'">Inquiries</button>
+        <button class="btn" onclick="location.href='/search/companies/0'">Companies</button>
+        <button class="btn" onclick="location.href='/search/posts/0'">Posts</button>
+    </div>
+    <div id="search-area">
+        <div id="search-tools">
+            <div>
+                {% if table == "posts" %}
+                <form id="search-form" method="POST" action="{% url 'pages:search_results' %}">
+                    {% csrf_token %}
+
+                    <input id="search-field" type="search" placeholder="Post search" name="search">
+                    <button id="search-btn">Search</button>
+                </form>
+                {% endif %}
+            </div>
+            <div id="arrows">
+                <button class="page-selector" id="backward" disabled><</button>
+                <button class="page-selector" id="forward" disabled>></button>
+            </div>
+        </div>
+
+        {% if results %}
+        <table>
+            <tr>
+                <th style="width: 15%;">Invoice</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 45%;">Service provided</th>
+                <th style="width: 10%;">Amount</th>
+                <th style="width: 10%;">Author</th>
+            </tr>
+            {% for result in results %}
+            <tr class='row' onclick="window.location='/{{table}}/{{ object.id }}';">
+                <td>{{ result.invoice_number }}</td>
+                <td>{{ result.title }}</td>
+                <td>{{ result.service_provided }}</td>
+                <td>{{ result.amount }}</td>
+                <td>{{ result.author}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <table>
+            <tr>
+                <th style="width: 15%;">Invoice</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 45%;">Service provided</th>
+                <th style="width: 10%;">Amount</th>
+                <th style="width: 10%;">Author</th>
+            </tr>
+        </table>
+        <h2 style="text-align: center;"><br/>No match found!</h2>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    const backward = document.getElementById('backward')
+    let previousPage = Number('{{page_number}}') - 1
+    backward.addEventListener("click", () => {
+            window.location.href = `/search/results/${previousPage}`;
+        });
+
+    const forward = document.getElementById('forward')
+    let nextPage = Number('{{page_number}}') + 1
+    console.log(nextPage)
+    forward.addEventListener("click", () => {
+            window.location.href = `/search/results/${nextPage}`;
+        });
+
+</script>
+{% endblock %}

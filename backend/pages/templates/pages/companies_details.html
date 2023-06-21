@@ -8,12 +8,12 @@
 <div class="central">
     <h1>{{ object.name }}</h1>
     <img src='/media/{{ object.image }}' id="logo" alt="Company logo"/>
-    <p class="form-label">License number: <span class="profile-span">{{ object.license_number }}</span></p>
-    <p class="form-label">Address: <span class="profile-span">{{ object.address }}</span></p>
-    <p class="form-label">Zip: <span class="profile-span">{{ object.zip }}</span></p>
-    <p class="form-label">Phone number: <span class="profile-span">{{ object.phone_number }}</span></p>
-    <p class="form-label">Email: <span class="profile-span">{{ object.email }}</span></p>
-    <p class="form-label">License status: <span class="profile-span">{{ object.license_status }}</span></p>
+    <div class="form-label col"><p class="label">License number: </p><span class="post-span">{{ object.license_number }}</span></div>
+    <div class="form-label col"><p class="label">Address: </p><span class="post-span">{{ object.address }}</span></div>
+    <div class="form-label col"><p class="label">Zip: </p><span class="post-span">{{ object.zip }}</a></span></div>
+    <div class="form-label col"><p class="label">Phone number: </p><span class="post-span">{{ object.phone_number }}</span></div>
+    <div class="form-label col"><p class="label">Email: </p><span class="post-span">{{ object.email }}</span></div>
+    <div class="form-label col"><p class="label">License status: </p><span class="post-span">{{ object.license_status }}</span></div>
     <h2>Employees</h2>
 
     {% if objects %}

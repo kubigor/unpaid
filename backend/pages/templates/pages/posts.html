@@ -11,16 +11,28 @@
     </div>
     <div id="search-area">
         <div id="search-tools">
-            {% if page_number == 0 %}
-            <button class="page-selector" id="backward" disabled><</button>
-            {% else %}
-            <button class="page-selector" id="backward"><</button>
-            {% endif %}
-            {% if is_last %}
-            <button class="page-selector" id="forward" disabled>></button>
-            {% else %}
-            <button class="page-selector" id="forward">></button>
-            {% endif %}
+            <div>
+                {% if table == "posts" %}
+                <form id="search-form" method="POST" action="{% url 'pages:search_results' %}">
+                    {% csrf_token %}
+
+                    <input id="search-field" type="search" placeholder="Post search" name="search">
+                    <button id="search-btn">Search</button>
+                </form>
+                {% endif %}
+            </div>
+            <div id="arrows">
+                {% if page_number == 0 %}
+                <button class="page-selector" id="backward" disabled><</button>
+                {% else %}
+                <button class="page-selector" id="backward"><</button>
+                {% endif %}
+                {% if is_last %}
+                <button class="page-selector" id="forward" disabled>></button>
+                {% else %}
+                <button class="page-selector" id="forward">></button>
+                {% endif %}
+            </div>
         </div>
         {% if table == 'posts' %} 
         <table>
@@ -45,20 +57,20 @@
         {% elif table == 'inquiries' %}
         <table>
             <tr>
-                <th style="width: 15%;">Invoice</th>
-                <th style="width: 20%;">Title</th>
-                <th style="width: 45%;">Service provided</th>
-                <th style="width: 10%;">Amount</th>
+                <th style="width: 10%;">Id</th>
+                <th style="width: 15%;">Title</th>
+                <th style="width: 50%;">Body</th>
                 <th style="width: 10%;">Author</th>
+                <th style="width: 15%;">Post</th>
             </tr>
             
             {% for object in objects %}
             <tr class='row' onclick="window.location='/{{table}}/{{ object.id }}';">
-                <td>{{ object.invoice_number }}</td>
+                <td>{{ object.id }}</td>
                 <td>{{ object.title }}</td>
-                <td>{{ object.service_provided }}</td>
-                <td>{{ object.name }}</td>
+                <td>{{ object.body }}</td>
                 <td>{{ object.author}}</td>
+                <td>{{ object.post }}</td>
             </tr>
             {% endfor %}
         </table>
