@@ -1,0 +1,214 @@
+table {
+    background-color: rgb(200, 200, 200);
+    width: 80%;
+    border-radius: 6px;
+    font-size: 1.4rem;
+    box-shadow: 0px 0px 6px rgb(95, 95, 95);
+
+}
+
+th {
+    padding: 0.5rem;
+
+}
+
+tr {
+    text-align: center;
+    border-bottom: 1px solid #ff0000;
+    height: 5vh;
+}
+
+tr:not(:first-child):hover {
+    background-color: #ffe5e5;
+    cursor: pointer;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(233, 233, 233);
+    padding: 0.3rem;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+}
+
+a {
+    color: var(--red-theme)
+}
+
+a:active {
+    color: var(--red-dark)
+}
+
+.label {
+    min-width: 10vw;
+    align-self: flex-start;
+}
+
+.central {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60vw;
+    padding-bottom: 3rem;
+    margin-bottom: 3rem;
+    background-color: rgb(238, 238, 238);
+    border-left: var(--red-dark) solid 3px;
+    border-right: var(--red-dark) solid 3px;
+    border-bottom: var(--red-dark) solid 3px;
+    box-shadow: 3px 3px 15px rgb(95, 95, 95);
+}
+
+.profile-span {
+    position: absolute;
+    margin-left: 12rem;
+}
+
+.form-label {
+    width: 16vw;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50vw;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 3rem;
+    background-color: rgb(238, 238, 238);
+    border-left: var(--red-dark) solid 3px;
+    border-right: var(--red-dark) solid 3px;
+    border-bottom: var(--red-dark) solid 3px;
+    box-shadow: 3px 3px 15px rgb(95, 95, 95);
+}
+
+.post-span {
+    position: relative;
+    margin-left: 2rem;
+}
+
+.inquiry-form-label {
+    display: flex;
+    margin-right: 0.2rem;
+    color: var(--red-dark);
+    font-size: 1.4rem;
+}
+
+.col {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#logo {
+    position: absolute;
+    top: 18%;
+    left: 23%;
+    width: 11vw;
+    height: auto;
+    border: black solid 2px;
+}
+
+.comment-field {
+    width: 70vw;
+}
+
+.comments {
+    padding: 1rem 3rem 1rem 3rem;
+    width: 40vw;
+    font-size: 1.2rem;
+    border-left: rgb(173, 0, 0) solid 3px;
+    border-right: rgb(173, 0, 0) solid 3px;
+    border-bottom: black solid 2px;
+    background-color: rgb(241, 241, 241);
+}
+
+#comments-container {
+    box-shadow: 3px 3px 15px rgb(95, 95, 95);
+
+}
+
+.link {
+    font-size: 0.8rem;
+}
+
+.attachment {
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 70%;
+    cursor: pointer;
+}
+
+.timestamp {
+    position: relative;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.comment-author {
+    font-weight: 600;
+    font-size: 1.4rem;
+
+}
+
+.comment-head {
+    width: 40vw;
+    margin-top: 1rem;    
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete {
+    color: var(--red-dark);
+    border-color: var(--red-dark);
+
+}
+
+#id_body {
+    resize:none;
+    max-height: 5rem; 
+    width: 35vw; 
+    padding: 0.5rem; 
+    font-size: 1.2rem; 
+    margin-top: 1rem;
+}
+
+#send {
+    position: relative;
+    bottom: 3.7rem;
+    left: 12rem;
+    color: rgb(0, 0, 0);
+    align-self: center;
+    background-color: rgb(214, 214, 214);
+    margin-top: 0.6rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 0.6rem 1rem 0.6rem 1rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+#comment {
+    margin-bottom: 6rem;
+}
+
+#scroll-btn {
+    position: absolute;
+    padding: 1rem;
+    right:5vw;
+    top:10vw;
+    font-size: 1.2rem;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+#scroll-btn:hover {
+    opacity: 0.8;
+}

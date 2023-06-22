@@ -1,0 +1,110 @@
+table {
+    width: 70%;
+    max-width: 100%;
+    font-size: 1.2rem;
+}
+
+tr {
+    height: 1.6rem;
+}
+
+.profile-span {
+    position: absolute;
+    margin-left: 12rem;
+}
+.form-title {
+    text-align: center;
+    font-size: 2.6rem;
+}
+
+.profile-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+}
+
+.tables {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+}
+
+.central {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40vw;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    margin-bottom: 12rem;
+    background-color: rgb(238, 238, 238);
+    border-radius: 18px;
+    border: var(--red-dark) solid 3px;
+    box-shadow: 3px 3px 15px rgb(95, 95, 95);
+}
+
+
+#layout {
+    display: flex;
+    flex-direction: row;
+    width: 99vw;
+}
+
+#company-info-container {
+    position: relative;
+    bottom: 4rem;
+}
+
+#info {
+    display: flex;
+    flex-direction: column;
+    margin-left: -12rem;
+}
+
+#update-btn {
+    justify-self: center;
+    align-self: center;
+    border-radius: 3px;
+    border: black solid 2px;
+    padding: 0.6rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: rgb(255, 182, 182);
+    cursor: pointer;
+}
+
+#update-btn:active{
+    background-color: var(--red-light);
+}
+
+#logo-update {
+    display: None;
+}
+
+#company-logo {
+    width: 11vw;
+    height: auto;
+    cursor: pointer;
+}
+
+#save-logo-btn {
+    position: relative;
+    bottom: 4.15rem;
+    left: 3.88rem
+}
+
+#add-inquiry-btn {
+    color: white;
+    width: 1.8rem;
+    height: 1.8rem;
+    background-color: var(--red-theme);
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    border-width: 2px;
+    cursor: pointer;
+    user-select: none;
+}

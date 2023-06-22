@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django_browser_reload',
+    'django_browser_reload',
     'base',
     'pages',
     'profiles',
@@ -87,8 +87,8 @@ DATABASES = {
         'NAME': 'unpaid_db',
         'USER': 'kubigor',
         'PASSWORD': 'admin',
-        # 'HOST': 'localhost',
-        'HOST': 'db',
+        'HOST': 'localhost',
+        # 'HOST': 'db',
         'PORT': '',
     }
 }
@@ -131,8 +131,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/'  
 # Path where media is stored  
+MEDIA_URL = '/media/'  
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')  
 
 # Default primary key field type

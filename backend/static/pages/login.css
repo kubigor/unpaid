@@ -1,0 +1,45 @@
+
+.login-label {
+    align-self: center;
+    color: var(--red-dark);
+    font-size: 1.4rem;
+}
+
+.login-field {
+    max-height: 5rem;
+    font-size: 1.4rem;
+    width: 15vw;
+}
+
+#message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#login-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40vw;
+}
+
+#registration-link {
+    color: var(--red-theme);
+    font-size: 1.4rem;
+    text-decoration: none;
+    font-weight: 700;
+    align-self: center;
+    margin: 1rem;   
+}
+
+#registration-link:hover {
+    color: var(--red-dark);
+}
