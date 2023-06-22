@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-gz7-(12w($i89#4y4c(13t%1kwkc**!t^p##$!=ig2dvq-v(ul'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_browser_reload',
+    # 'django_browser_reload',
     'base',
     'pages',
     'profiles',
@@ -87,8 +87,8 @@ DATABASES = {
         'NAME': 'unpaid_db',
         'USER': 'kubigor',
         'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        # 'HOST': 'db',
+        # 'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '',
     }
 }
