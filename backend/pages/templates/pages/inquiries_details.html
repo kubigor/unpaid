@@ -1,0 +1,17 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/details.css' %}">
+
+<div class="post">
+    <h1>{{ object.title }}</h1>
+    <div class="inquiry-form-label col"><p class="label">Author: </p><span class="post-span"><a href="/members/{{ member.id }}">{{ object.author }}</a></span></div>
+    <div class="inquiry-form-label col"><p class="label">Post reference: </p><span class="post-span"><a href="/posts/{{ post.id }}">{{ object.post }}</a></span></div>
+    {% if object.attachment %}
+    <div class="inquiry-form-label col"><p class="label">Attachment: </p><span class="post-span"><a href="/media/{{ object.attachment }}" target="_blank">View</a></span></div>
+    {% endif %}
+    <div class="inquiry-form-label col"><p  class="label">Desription: </p><span class="post-span">{{ object.body }}</span></div>
+</div>
+
+{% endblock %}

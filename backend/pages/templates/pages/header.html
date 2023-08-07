@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Unpaid{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'pages/header.css' %}">
+</head>
+<body>
+    <div id="header">
+        <div id="menu">
+            <a class="menu-button" href="/">Home</a>
+            <a class="menu-button" href="/search/posts/0">Posts</a>
+            <a class="menu-button" href="/newpost">Create post</a>
+            <a class="menu-button" href="/profile">My Profile</a>
+            {% if user.is_authenticated %}
+                <a class="menu-button" href="/profile/logout_user">Logout</a>
+            {% else %}
+                <a class="menu-button" href="/profile/login">Login</a>
+            {% endif %}
+        </div>
+    </div>
+    <div id="content">
+        {% block content %} 
+        <div id="intro">
+        <h1>Prototype of service 'Unpaid'</h1> 
+        <p id="intro-text">Customer's rights are highly protected to ensure fair and satisfactory service experiences. On the other hand, service providers often have fewer protections. They face a challenge such as late or non-payment. While there are some legal remedies available, the burden of proof and the costs involved can be significant, making it challenging for service providers to assert their rights effectively. And some people take advantage of that.</p>
+        <p id="intro-text">The main idea of "Unpaid" is to solve that issue and assist contractors in establishing a database of customers who have not made payment for provided services. It allows servicers to create a list of unpaid jobs, verify if existing or potential customers have a history of non-payment or issues with previous contractors.</p>
+        </div>
+        {% endblock %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/details.css' %}">
+
+<div class="post">
+    <h1>{{ object.title }}</h1>
+    <div class="inquiry-form-label col"><p class="label">Service provided: </p><span class="post-span">{{ object.service_provided }}</span></div>
+    <div class="inquiry-form-label col"><p class="label">Contractor: </p><span class="post-span"><a href="/members/{{ post_author.id }}">{{ object.author }}</a></span></div>
+    <div class="inquiry-form-label col"><p class="label">Invoice number: </p><span class="post-span">{{ object.invoice_number }}</span></div>
+    <div class="inquiry-form-label col"><p class="label">Amount: </p><span class="post-span">{{ object.amount }}</span></div>
+    <div class="inquiry-form-label col"><p class="label">Customer info: </p><span class="post-span">{{ object.customer_info }}</span></div>
+    <div class="inquiry-form-label col"><p class="label">Invoice photo: </p><span class="post-span"><a href="/media/{{ object.invoice_photo }}" target="_blank">View</a></span></div>
+    <div class="inquiry-form-label col"><p  class="label">Desription: </p><span class="post-span">{{ object.description }}</span></div>
+</div>
+
+<button id="scroll-btn" onclick="scrollToBottom()">Scroll to the end</button>
+
+<div id="comment-section">
+    <div id="comments-container">
+        {% for comment in comments %}
+            <div class="comments"> 
+                <div class="comment-head">
+                    <div class="head-container">
+                        <span class="comment-author">
+                            <a href="/members/{{ comment.author.id }}">{{ comment.author }}</a> 
+                            {% if comment.attachment %}
+                            <a class="link" href="/media/{{ comment.attachment }}"><img src="/media/invoices/attachment.png" width="20"></a>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="timestamp"> {{ comment.created_at }}</span>
+                        {% if current_user == comment.author.username %}
+                        <button class="delete" onclick="window.location='/delete{{ path }}/{{ comment.id }}';">X</button>
+                        {% endif %}
+                    </div>
+                </div>
+                <p>{{ comment.body }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="comment">
+        <form method="post" enctype="multipart/form-data"> 
+            {% csrf_token %}
+
+            {{ form.as_p }}
+            <button id="send" type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function scrollToBottom() {
+      const element = document.getElementById("comment");
+      element.scrollIntoView({behavior: 'smooth'});
+    }
+</script>
+{% endblock %}

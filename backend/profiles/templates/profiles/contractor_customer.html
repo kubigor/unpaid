@@ -1,0 +1,14 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block title %} Type {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/contractor_customer.css' %}">
+
+<h1 class="form-title">Welcome in! Would you like to use this account <br/>  as a customer or a contractor (or company representative)?</h1>
+<div class="container">
+    <a href="?customer"><button class="block">Customer</button></a>
+    <a href="?contractor"><button class="block">Contractor</button></a>
+</div>
+{% endblock %}

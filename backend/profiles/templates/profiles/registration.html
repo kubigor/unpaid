@@ -1,0 +1,32 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block title %} Registration {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="form-title">Registration</h1>
+    <div id="message">
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}" id="msg" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    
+    {% if user.is_authenticated %}
+        <a id="registration-link" href="/profile/settings"><button class="btn">Profile</button></a>
+    {% else %}
+        <form action="registration" accept="" method=POST>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn">Sign up</button>
+        </form>
+    {% endif %}
+</div>
+
+
+ {% endblock %}

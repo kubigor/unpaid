@@ -1,0 +1,29 @@
+.form-title {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 3rem;
+    justify-content: center;
+}
+
+.block {
+    color: var(--red-dark);
+    font-size: 3rem;
+    border: white solid 4px;
+    background-color: rgb(252, 239, 239);
+    border-radius: 8px;
+    padding: 3rem;
+    margin-top: 2rem;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+}
+
+.block:hover {
+    background-color: none;
+    border-color: var(--red-theme);
+    transition: all 0.5s;
+}

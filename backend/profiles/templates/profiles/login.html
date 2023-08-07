@@ -1,0 +1,36 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/login.css' %}">
+
+<div class="container">
+    <h1 class="form-title">Login</h1>
+    <div id="message">
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}" id="msg" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+        <a id="registration-link" href="/profile/logout_user"><button class="btn">Logout</button></a>
+    {% else %}
+        <form accept="" method=POST>
+            {% csrf_token %}
+            <label for="username" class="login-label">Username</label>
+            <input type="text" class="login-field" id="username" name="username"><br><br>
+            <label for="password" class="login-label">Password</label>
+            <input type="text" class="login-field" id="password" name="password"><br><br>
+            <button class="btn">Login</button>
+            <a id="registration-link" href="registration">Registration</a>
+        </form>
+    {% endif %}
+</div>
+
+
+ {% endblock %}

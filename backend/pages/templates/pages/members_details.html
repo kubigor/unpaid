@@ -1,0 +1,81 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/profile.css' %}">
+
+<h1 class="form-title">{{ object.username }}'s account</h1>
+<div id="layout">
+    <div class="profile-column">
+
+    </div>
+    <div class=" central">
+        <div id="info">
+            <p class="form-label">Username: <span class="profile-span">{{ object.username }}</span></p>
+            <p class="form-label">First name: <span class="profile-span">{{ object.first_name }}</span></p>
+            <p class="form-label">Last name: <span class="profile-span">{{ object.last_name }}</span></p>
+            <p class="form-label">Email: <span class="profile-span">{{ object.email }}</span></p>
+            {% if object.is_contractor %}
+            <p class="form-label">Contractor: <span class="profile-span">Yes</span></p>
+            {% else %}
+            <p class="form-label">Contractor: <span class="profile-span">No</span></p>
+            {% endif %}
+            {% if object.is_contractor %}
+                {% if object.company %}
+                <p class="form-label">Company: <span class="profile-span">{{ object.company }}</span></p>
+                {% endif %}
+                {% if object.position %}
+                <p class="form-label">Position: <span class="profile-span">{{ object.position }}</span></p>
+                {% endif %}
+            {% else %}
+                {% if object.phone_number %}
+                    <p class="form-label">Phone number: <span class="profile-span">{{ object.phone_number }}</span></p>
+                {% endif %}
+                {% if object.address or object.zip %}
+                    <p class="form-label">Address: <span class="profile-span">{{ object.address }}, {{ object.zip }}</span></p>
+                {% endif %}
+            {% endif %}
+
+        </div>
+        </a>
+    </div>
+    <div class="tables">
+        {% if current_member.is_contractor %}
+        <h2> {{ object.username }}'s posts</h2>
+        <table>
+            <tr>
+                <th style="width: 30%;">Invoice</th>
+                <th style="width: 30%;">Title</th>
+                <th style="width: 40%;">Service provided</th>
+            </tr>
+            
+            {% for post in posts %}
+            <tr class='row' onclick="window.location='/posts/{{ post.id }}';">
+                <td>{{ post.invoice_number }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.service_provided }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+
+        <h3>{{ object.username }}'s inquiries</h3>
+        <table>
+            <tr>
+                <th style="width: 10%;">Id</th>
+                <th style="width: 45%;">Title</th>
+                <th style="width: 45%;">Post</th>
+            </tr>
+            
+            {% for inquiry in inquiries %}
+            <tr class='row' onclick="window.location='/inquiries/{{ inquiry.id }}';">
+                <td>{{ inquiry.id }}</td>
+                <td>{{ inquiry.title }}</td>
+                <td>{{ inquiry.post }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

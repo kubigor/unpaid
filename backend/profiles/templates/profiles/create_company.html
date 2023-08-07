@@ -1,0 +1,23 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block title %} Create Company {% endblock %}
+
+{% block content %}
+
+<div class="container"> 
+    {% if submitted %}
+        <h3 id="confirmation">Company was listed!</h3>
+        <a href="/"><button class="btn" >Post another</button></a>
+    {% else %}
+        <h1 class="form-title">Create a company listing</h1>
+        <form accept="" method=POST>
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            <button class="btn">Create</button>
+        </form>
+    {% endif %}
+</div>
+
+{% endblock %}  

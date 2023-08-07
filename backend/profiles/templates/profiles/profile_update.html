@@ -1,0 +1,36 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block title %} Profile Settings {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/profile_update.css' %}">
+
+<div class="container">
+    {% if user.is_authenticated %}
+        <h1 class="form-title">Profile Settings</h1>
+        <div id="message">
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}" id="msg" role="alert">
+                    {{ message }}
+                </div>
+                {% if message.tags == 'alert-warning' %}
+                    <a href="company" id="anchor"><h1 id="company-create-link">Create a company!</h1></a>
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    
+        <form method=POST>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn">Save changes</button>
+        </form>
+    {% else %}
+        <h1 class="form-title">You have limited functionality when not logged in!</h1>
+    {% endif %}
+</div>
+
+
+ {% endblock %}

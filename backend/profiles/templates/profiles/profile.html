@@ -1,0 +1,144 @@
+{% extends 'pages/header.html' %}
+{% load static %}
+
+{% block title %} My account {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'pages/profile.css' %}">
+<h1 class="form-title">My account</h1>
+<div id="layout">
+    <div class="profile-column">
+        {% if current_member.company != 'None' %}
+        <div id="company-container">
+            <div id="company-logo-container">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if current_company.image %}
+                    <img id="company-logo" src="/media/{{ current_company.image }}" alt="Company logo" width="200" height="200">
+                    {% else %}
+                    <img id="company-logo" src="/media/logos/placeholder.png" alt="Company logo">
+                    {% endif %}
+                    {{ form.as_p }}
+                    <button id="save-logo-btn" type="submit">Save logo</button>
+                </form>
+            </div>
+            <div id="company-info-container">
+                <p class="form-label">{{ current_company.name|title }}</p>
+                <p class="form-label">{{ current_company.license_number }}</p>
+                <p class="form-label">{{ current_company.address }}</p>
+                <p class="form-label">{{ current_company.zip }}</p>
+                <p class="form-label">{{ current_company.phone_number }}</p>
+                <p class="form-label">{{ current_company.email }}</p>
+                {% if messages %}
+                {% for message in messages %}
+                <p class="form-label">Your actual status is "{{ current_company.license_status }}"</p>
+                {% endfor %}
+                {% else %}
+                <p class="form-label">{{ current_company.license_status }}</p>
+                {% endif %}
+                <!-- <button onclick="window.location.href='update';" id="update-btn">Check status</button> -->
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class=" central">
+        <div id="info">
+            <p class="form-label">Username: <span class="profile-span">{{ current_member.username }}</span></p>
+            <p class="form-label">First name: <span class="profile-span">{{ current_member.first_name }}</span></p>
+            <p class="form-label">Last name: <span class="profile-span">{{ current_member.last_name }}</span></p>
+            <p class="form-label">Email: <span class="profile-span">{{ current_member.email }}</span></p>
+            {% if current_member.is_contractor %}
+            <p class="form-label">Contractor: <span class="profile-span">Yes</span></p>
+            {% else %}
+            <p class="form-label">Contractor: <span class="profile-span">No</span></p>
+            {% endif %}
+            {% if current_member.is_contractor %}
+                {% if current_member.company %}
+                <p class="form-label">Company: <span class="profile-span">{{ current_member.company }}</span></p>
+                {% endif %}
+                {% if current_member.position %}
+                <p class="form-label">Position: <span class="profile-span">{{ current_member.position }}</span></p>
+                {% endif %}
+            {% else %}
+                {% if current_member.phone_number %}
+                    <p class="form-label">Phone number: <span class="profile-span">{{ current_member.phone_number }}</span></p>
+                {% endif %}
+                {% if current_member.address or current_member.zip %}
+                    <p class="form-label">Address: <span class="profile-span">{{ current_member.address }}, {{ current_member.zip }}</span></p>
+                {% endif %}
+            {% endif %}
+
+        </div>
+        <a href="settings">
+            <button class="btn">Go to settings</button>
+        </a>
+    </div>
+    <div class="tables">
+        {% if current_member.is_contractor %}
+        <h2> My posts</h2>
+        {% if posts %}
+        <table>
+            <tr>
+                <th style="width: 30%;">Invoice</th>
+                <th style="width: 30%;">Title</th>
+                <th style="width: 40%;">Service provided</th>
+            </tr>
+            
+            {% for post in posts %}
+            <tr class='row' onclick="window.location='/posts/{{ post.id }}';">
+                <td>{{ post.invoice_number }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.service_provided }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <table>
+            <tr>
+                <th style="width: 30%;">Invoice</th>
+                <th style="width: 30%;">Title</th>
+                <th style="width: 40%;">Service provided</th>
+            </tr>
+        </table>
+        <h3>You have no posts yet.</h3>
+        {% endif %}
+        {% endif %}
+
+        <h3>My inquiries <button id="add-inquiry-btn" onclick="window.location='/inquiry';">+</button></h3>
+        {% if inquiries %}            
+        <table>
+            <tr>
+                <th style="width: 10%;">Id</th>
+                <th style="width: 45%;">Title</th>
+                <th style="width: 45%;">Post</th>
+            </tr>
+            {% for inquiry in inquiries %}
+            <tr class='row' onclick="window.location='/inquiries/{{ inquiry.id }}';">
+                <td>{{ inquiry.id }}</td>
+                <td>{{ inquiry.title }}</td>
+                <td>{{ inquiry.post }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <table>
+            <tr>
+                <th style="width: 10%;">Id</th>
+                <th style="width: 45%;">Title</th>
+                <th style="width: 45%;">Post</th>
+            </tr>
+        </table>
+        <h3>You don't have any inquiries at this moment.</h3>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    const realBtn = document.getElementById("logo-update")
+    const fakeBtn = document.getElementById("company-logo")
+    fakeBtn.addEventListener("click", function() {
+        realBtn.click();
+    })
+</script>
+
+ {% endblock %}
