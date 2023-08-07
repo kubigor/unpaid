@@ -1,6 +1,6 @@
 # Service Unpaid
-You're welcome to check my [Docker images](/https://hub.docker.com/repositories/kubigor) and try it on your own!
 #### Django, posgreSQL, nginx, Docker
+You're welcome to check my [Docker images](/https://hub.docker.com/repositories/kubigor) and try it on your own!
 
 Customer's rights are highly protected to ensure fair and satisfactory service experiences. On the other hand, service providers often have fewer protections. They face a challenge such as late or non-payment. While there are some legal remedies available, the burden of proof and the costs involved can be significant, making it challenging for service providers to assert their rights effectively. And some people take advantage of that.
 
