@@ -1,2 +1,4 @@
 venv/
-
+nginx-config
+docker-compose.yml
+DEADJOE
